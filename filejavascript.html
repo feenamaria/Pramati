@@ -1,0 +1,72 @@
+<html>
+
+<head>
+    <title>FileUploader</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../Projects/javascripts/jquery-linedtextarea.js"></script>
+    <script src="../Projects/javascripts/prism.js"></script>
+    <link href="../Projects/stylesheets/jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
+    <link href="../Projects/stylesheets/prism.css" type="text/css" rel="stylesheet" />
+    <link href="../Projects/highlight/highlight/styles/default.css" type="text/css" rel="stylesheet" />
+    <script src="../Projects/highlight/highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+        $(document).ready(function () {
+            $('input[type="file"]').change(function () {
+                input = document.getElementById('fileinput');
+                file = input.files[0];
+                fr = new FileReader();
+                fr.onload = receivedText;
+                fr.readAsText(file);
+                fileName = input.files[0].name;
+                window.alert('The file "' + fileName + '" has been selected.');
+                extractextenc = fileName.split('.').pop();
+                document.getElementById("pp").value = extractextenc;
+                window.alert(extractextenc);
+                $("#cc").addClass("language-" + extractextenc);
+            });
+        });
+        function receivedText() {
+            document.getElementById('i').appendChild(document.createTextNode(fr.result));
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <form>
+        <input type="file" id="fileinput">
+    </form>
+    <input type="text" id="pp">
+    <pre>
+            <code id="cc">
+                <span id=i></span>
+                
+                   <!-- <textarea class="lined" rows="10" cols="60" id="i"></textarea>     -->   
+            </code>
+    </pre>
+    <textarea class="lined" rows="10" cols="60" id="i"></textarea>
+    <pre>
+        <code class="language-java">
+            import java.io.*;
+            import java.util.*;
+            public class Sample{
+                public static void main(String args[])
+                {
+                        System.out.println("Hai");
+                }
+            }
+        </code>
+    </pre>
+
+    <script>
+        $(function () {
+            $(".lined").linedtextarea(
+                { selectedLine: 1 }
+            );
+        });
+    </script>
+</body>
+
+</html>
